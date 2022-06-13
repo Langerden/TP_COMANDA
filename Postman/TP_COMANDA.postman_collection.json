@@ -1,0 +1,880 @@
+{
+	"info": {
+		"_postman_id": "80f54def-3365-46d6-9b73-6efe81ff1719",
+		"name": "TP_COMANDA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GET ALL USERS",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ3Mzg5MDMsImV4cCI6MTY1NDc0MjUwMywiYXVkIjoiZmYxN2ZiNzUzNThhMjQ1MTU1ZmQyYzY3MmNkOTdlODBhOTZkOGY0ZSIsImRhdGEiOnsiaWQiOjEsInVzZXJuYW1lIjoiRGVuaXNlIiwidXNlcl9wYXNzd29yZCI6IiQyeSQxMCRyYXRNN2JXaVkxV0k3bnpNb3BSVTZPVjJDTGhDZlNoemljekQ4MjFCWnAuYjBmaGlad1hocSIsInJvbCI6Ik1PWk8iLCJhcmVhIjoiQ09DSU5BIiwidXNlcl9zdGF0dXMiOiJBQ1RJVkUiLCJjcmVhdGVkQXQiOiIyMDIyLTA2LTA5IDAzOjIzOjEyIiwiZGVsZXRlZEF0IjpudWxsfSwiYXBwIjoiQ29tYW5kYSJ9.z1al44BliLs8mQlI_ygv6j47PdQ3DASBcy9HI75py58",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:666/users",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET USER BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/users/4",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE USER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Chefcito\",\r\n    \"password\": \"1234\",\r\n    \"area\": \"COCINA\",\r\n    \"rol\": \"CHEF\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:666/users",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE USER",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ3NDM1MjksImV4cCI6MTY1NDc0NzEyOSwiYXVkIjoiZmYxN2ZiNzUzNThhMjQ1MTU1ZmQyYzY3MmNkOTdlODBhOTZkOGY0ZSIsImRhdGEiOnsiaWQiOjIsInVzZXJuYW1lIjoiQ2FybGl0b3MiLCJ1c2VyX3Bhc3N3b3JkIjoiJDJ5JDEwJE5CZ0Y4LmJwdkI1SUd2ODBMbnM4R3U5NlJRTUNzcGt0UDhlT2ZXeDlvTEVaS0NCbjBBTmdTIiwicm9sIjoiU09DSU8iLCJhcmVhIjoiU09DSU8iLCJ1c2VyX3N0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRBdCI6IjIwMjItMDYtMDkgMDM6MzE6NTIiLCJkZWxldGVkQXQiOm51bGx9LCJhcHAiOiJDb21hbmRhIn0.9j_PESJ5s92lNnwO6oOtZdfmalTaXpsN9aorQveMXBM",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"area\": \"COCINA\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:666/users/1",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE BDD",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/users/3",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": \"Denise\",\r\n    \"password\": \"$2y$10$ratM7bWiY1WI7nzMopRU6OV2CLhCfShziczD821BZp.b0fhiZwXhq\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:666/users/login",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/products",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/products/5",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"products",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUxNjA2ODgsImV4cCI6MTY1NTE2NDI4OCwiYXVkIjoiZmYxN2ZiNzUzNThhMjQ1MTU1ZmQyYzY3MmNkOTdlODBhOTZkOGY0ZSIsImRhdGEiOnsiaWQiOjIsInVzZXJuYW1lIjoiQ2FybGl0b3MiLCJ1c2VyX3Bhc3N3b3JkIjoiJDJ5JDEwJE5CZ0Y4LmJwdkI1SUd2ODBMbnM4R3U5NlJRTUNzcGt0UDhlT2ZXeDlvTEVaS0NCbjBBTmdTIiwicm9sIjoiU09DSU8iLCJhcmVhIjoiU09DSU8iLCJ1c2VyX3N0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRBdCI6IjIwMjItMDYtMDkgMDM6MzE6NTIiLCJkZWxldGVkQXQiOm51bGx9LCJhcHAiOiJDb21hbmRhIn0.LPatd1UZ-yZY1WWUVCl5WUbSNaEQMlv2OFGYylN6SgQ",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"productName\": \"Monster\",\r\n        \"product_type\": \"Bebida\",\r\n        \"price\": 220,\r\n        \"description\": \"Bebida Energetica\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:666/products",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUxNjA2ODgsImV4cCI6MTY1NTE2NDI4OCwiYXVkIjoiZmYxN2ZiNzUzNThhMjQ1MTU1ZmQyYzY3MmNkOTdlODBhOTZkOGY0ZSIsImRhdGEiOnsiaWQiOjIsInVzZXJuYW1lIjoiQ2FybGl0b3MiLCJ1c2VyX3Bhc3N3b3JkIjoiJDJ5JDEwJE5CZ0Y4LmJwdkI1SUd2ODBMbnM4R3U5NlJRTUNzcGt0UDhlT2ZXeDlvTEVaS0NCbjBBTmdTIiwicm9sIjoiU09DSU8iLCJhcmVhIjoiU09DSU8iLCJ1c2VyX3N0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRBdCI6IjIwMjItMDYtMDkgMDM6MzE6NTIiLCJkZWxldGVkQXQiOm51bGx9LCJhcHAiOiJDb21hbmRhIn0.LPatd1UZ-yZY1WWUVCl5WUbSNaEQMlv2OFGYylN6SgQ",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"price\": 150,\r\n        \"description\": \"Bebida Energetica\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:666/products/16",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"products",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE BDD",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/products/3",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"products",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/orders/17",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"orders",
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET BY ORDERNUMBER",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/orders/productos/33636 ",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"orders",
+								"productos",
+								"33636 "
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET TIME BY ORDER AND TABLE NUMBER",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/orders/:ordernumber/mesa/:mesanumber",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"orders",
+								":ordernumber",
+								"mesa",
+								":mesanumber"
+							],
+							"variable": [
+								{
+									"key": "ordernumber",
+									"value": "30570"
+								},
+								{
+									"key": "mesanumber",
+									"value": "2000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUxNjA4NTksImV4cCI6MTY1NTE2NDQ1OSwiYXVkIjoiZmYxN2ZiNzUzNThhMjQ1MTU1ZmQyYzY3MmNkOTdlODBhOTZkOGY0ZSIsImRhdGEiOnsiaWQiOjEsInVzZXJuYW1lIjoiRGVuaXNlIiwidXNlcl9wYXNzd29yZCI6IiQyeSQxMCRyYXRNN2JXaVkxV0k3bnpNb3BSVTZPVjJDTGhDZlNoemljekQ4MjFCWnAuYjBmaGlad1hocSIsInJvbCI6Ik1PWk8iLCJhcmVhIjoiQkFSUkEiLCJ1c2VyX3N0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRBdCI6IjIwMjItMDYtMDkgMDM6MjM6MTIiLCJkZWxldGVkQXQiOm51bGx9LCJhcHAiOiJDb21hbmRhIn0.MgYNdhDLvl4KrOzvewajV7ZzrQ9X5iLu3rLtmlVKQE4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "tablenumber",
+									"value": "5000",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "productId",
+									"value": "3",
+									"type": "default"
+								},
+								{
+									"key": "picture",
+									"type": "file",
+									"src": "/C:/Users/Denuchan/Pictures/1d4205aa-6805-497c-9d4e-de5d0456ed11.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:666/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUwNjQyMDgsImV4cCI6MTY1NTA2NzgwOCwiYXVkIjoiZmYxN2ZiNzUzNThhMjQ1MTU1ZmQyYzY3MmNkOTdlODBhOTZkOGY0ZSIsImRhdGEiOnsiaWQiOjEsInVzZXJuYW1lIjoiRGVuaXNlIiwidXNlcl9wYXNzd29yZCI6IiQyeSQxMCRyYXRNN2JXaVkxV0k3bnpNb3BSVTZPVjJDTGhDZlNoemljekQ4MjFCWnAuYjBmaGlad1hocSIsInJvbCI6Ik1PWk8iLCJhcmVhIjoiQkFSUkEiLCJ1c2VyX3N0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRBdCI6IjIwMjItMDYtMDkgMDM6MjM6MTIiLCJkZWxldGVkQXQiOm51bGx9LCJhcHAiOiJDb21hbmRhIn0.WlI--Lz5uD_4z85a7gHlun4GwicX8LVd1QepP0gW6D8",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tableId\": \"2\",\r\n    \"userId\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:666/orders/5",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"orders",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE BDD",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUwNjYxNDksImV4cCI6MTY1NTA2OTc0OSwiYXVkIjoiZmYxN2ZiNzUzNThhMjQ1MTU1ZmQyYzY3MmNkOTdlODBhOTZkOGY0ZSIsImRhdGEiOnsiaWQiOjIsInVzZXJuYW1lIjoiQ2FybGl0b3MiLCJ1c2VyX3Bhc3N3b3JkIjoiJDJ5JDEwJE5CZ0Y4LmJwdkI1SUd2ODBMbnM4R3U5NlJRTUNzcGt0UDhlT2ZXeDlvTEVaS0NCbjBBTmdTIiwicm9sIjoiU09DSU8iLCJhcmVhIjoiU09DSU8iLCJ1c2VyX3N0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRBdCI6IjIwMjItMDYtMDkgMDM6MzE6NTIiLCJkZWxldGVkQXQiOm51bGx9LCJhcHAiOiJDb21hbmRhIn0.dPOGGSQK_jC-gEfqxNLfyaDbg1w6W1VuAoEc95E6a8Q",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "localhost:666/orders/18",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"orders",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ADD PRODUCT IN ORDER",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUxNjA4NTksImV4cCI6MTY1NTE2NDQ1OSwiYXVkIjoiZmYxN2ZiNzUzNThhMjQ1MTU1ZmQyYzY3MmNkOTdlODBhOTZkOGY0ZSIsImRhdGEiOnsiaWQiOjEsInVzZXJuYW1lIjoiRGVuaXNlIiwidXNlcl9wYXNzd29yZCI6IiQyeSQxMCRyYXRNN2JXaVkxV0k3bnpNb3BSVTZPVjJDTGhDZlNoemljekQ4MjFCWnAuYjBmaGlad1hocSIsInJvbCI6Ik1PWk8iLCJhcmVhIjoiQkFSUkEiLCJ1c2VyX3N0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRBdCI6IjIwMjItMDYtMDkgMDM6MjM6MTIiLCJkZWxldGVkQXQiOm51bGx9LCJhcHAiOiJDb21hbmRhIn0.MgYNdhDLvl4KrOzvewajV7ZzrQ9X5iLu3rLtmlVKQE4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "orderId",
+									"value": "27",
+									"type": "default"
+								},
+								{
+									"key": "productId",
+									"value": "2",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:666/order/27/product/2",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"order",
+								"27",
+								"product",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CHANGE STATUS - CHEF",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUxNjExMTMsImV4cCI6MTY1NTE2NDcxMywiYXVkIjoiZmYxN2ZiNzUzNThhMjQ1MTU1ZmQyYzY3MmNkOTdlODBhOTZkOGY0ZSIsImRhdGEiOnsiaWQiOjQsInVzZXJuYW1lIjoiQ2hlZmNpdG8iLCJ1c2VyX3Bhc3N3b3JkIjoiJDJ5JDEwJDQxOUpraFQzaWFrSkpUSjBjYU9JNC5nN0I5TkZRaTNWYXdZdUhPQmx1WEsuMDdKSnhsTFFPIiwicm9sIjoiQ0hFRiIsImFyZWEiOiJDT0NJTkEiLCJ1c2VyX3N0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRBdCI6IjIwMjItMDYtMDkgMDU6MDg6MzQiLCJkZWxldGVkQXQiOm51bGx9LCJhcHAiOiJDb21hbmRhIn0.ZAEYUAtk2gDvP8ly7vne057klRoIy5RoDg5In277XPo",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "estimatedTime",
+									"value": "50",
+									"type": "default"
+								},
+								{
+									"key": "orderStatus",
+									"value": "listo para servir",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:666/order/status/:orderNumber",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"order",
+								"status",
+								":orderNumber"
+							],
+							"variable": [
+								{
+									"key": "orderNumber",
+									"value": "34199"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CHANGE STATUS - MOZO",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUxNjEyMDMsImV4cCI6MTY1NTE2NDgwMywiYXVkIjoiZmYxN2ZiNzUzNThhMjQ1MTU1ZmQyYzY3MmNkOTdlODBhOTZkOGY0ZSIsImRhdGEiOnsiaWQiOjEsInVzZXJuYW1lIjoiRGVuaXNlIiwidXNlcl9wYXNzd29yZCI6IiQyeSQxMCRyYXRNN2JXaVkxV0k3bnpNb3BSVTZPVjJDTGhDZlNoemljekQ4MjFCWnAuYjBmaGlad1hocSIsInJvbCI6Ik1PWk8iLCJhcmVhIjoiQkFSUkEiLCJ1c2VyX3N0YXR1cyI6IkFDVElWRSIsImNyZWF0ZWRBdCI6IjIwMjItMDYtMDkgMDM6MjM6MTIiLCJkZWxldGVkQXQiOm51bGx9LCJhcHAiOiJDb21hbmRhIn0.nPSWHz_KMMWPThKnTwrMRsj9nBsrxircDlMZCRbiDMM",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "orderStatus",
+									"value": "servido",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:666/order/complete/34199",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"order",
+								"complete",
+								"34199"
+							],
+							"query": [
+								{
+									"key": "orderStatus",
+									"value": "servido",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tables",
+			"item": [
+				{
+					"name": "GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/tables",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"tables"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/tables/5",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"tables",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/tables?tableNumber=12345",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"tables"
+							],
+							"query": [
+								{
+									"key": "tableNumber",
+									"value": "12345"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"table_status\": \"cerrada\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:666/tables/1",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"tables",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE BDD",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/tables/1",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"tables",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Querys",
+			"item": [
+				{
+					"name": "Employees",
+					"item": [
+						{
+							"name": "GET Registro Login",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:666/querys/employees",
+									"host": [
+										"localhost"
+									],
+									"port": "666",
+									"path": [
+										"querys",
+										"employees"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Mesa",
+					"item": [
+						{
+							"name": "GET CONSULTAS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:666/querys/tables/:consulta",
+									"host": [
+										"localhost"
+									],
+									"port": "666",
+									"path": [
+										"querys",
+										"tables",
+										":consulta"
+									],
+									"variable": [
+										{
+											"key": "consulta",
+											"value": "MenorImporte"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET IMPORTE ENTRE FECHAS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:666/querys/tables/:fechaInicio/:fechaFin",
+									"host": [
+										"localhost"
+									],
+									"port": "666",
+									"path": [
+										"querys",
+										"tables",
+										":fechaInicio",
+										":fechaFin"
+									],
+									"variable": [
+										{
+											"key": "fechaInicio",
+											"value": "2022-06-12"
+										},
+										{
+											"key": "fechaFin",
+											"value": "2022-06-13"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Orders",
+					"item": [
+						{
+							"name": "GET Producto Mas Vendido",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:666/querys/orders/:consulta",
+									"host": [
+										"localhost"
+									],
+									"port": "666",
+									"path": [
+										"querys",
+										"orders",
+										":consulta"
+									],
+									"variable": [
+										{
+											"key": "consulta",
+											"value": "LoMenosPedido"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
