@@ -1,6 +1,7 @@
 <?php
 
 require_once './models/Survery.php';
+require './fpdf/fpdf.php';
 
 class SurveyController {
 
@@ -111,11 +112,12 @@ class SurveyController {
                 && self::ValidateScores($waiterScore) && self::ValidateScores($chefScore)
                 && strlen($comments) <= 66) {
                     $survery = Survery::CreateSurvery($order[0]->table_id, $tableScore, $restaurantScore, $waiterScore, $chefScore, $comments);
+                    HistoricAccions::CreateRegistry("Encuesta", "Se creo una encuesta con el id: ".$survery);
                     $payload = json_encode(array("mensaje" => "Encuesta ". $survery." creada con exito! Gracias"));
                 } else {
                 $payload = json_encode(array("ERROR" => "Los puntajes deben ser entre 1 y 10. El comentario tiene un maximo de 66 caracteres"));
                 }
-                
+
                 $response->getBody()->write($payload);
                 return $response
                     ->withHeader('Content-Type', 'application/json')
@@ -129,6 +131,42 @@ class SurveyController {
                     ->withStatus(500);
             }          
         }        
+    }
+
+    public static function EndpointCreatePDF ($request, $response, $args) {
+        
+        $pdf = new FPDF('P', 'mm', 'A3');
+        $pdf->AddPage();
+        $pdf->SetFont('Arial','B',14);
+        $pdf->Cell(30,10,'Encuestas');
+        $pdf->Ln();
+        $pdf->SetFont('Arial','B',10);
+        $pdf->Cell(30,10,'ID');
+        $pdf->Cell(30,10,'ID Tabla');
+        $pdf->Cell(30,10,'Puntaje Tabla');
+        $pdf->Cell(30,10,'Puntaje Restaurante');
+        $pdf->Cell(30,10,'Puntaje Mozo');
+        $pdf->Cell(30,10,'Puntaje Chef');
+        $pdf->Cell(30,10,'Comentarios');
+        $pdf->Ln();
+        $pdf->SetFont('Arial','',12);
+
+        $arrayFile = SurveyController::ReadCSV();
+
+        foreach ($arrayFile as $entity) {
+            $pdf->Cell(30,10,$entity->id);
+            $pdf->Cell(30,10,$entity->id_table);
+            $pdf->Cell(30,10,$entity->score_table);
+            $pdf->Cell(30,10,$entity->score_restarnt);
+            $pdf->Cell(30,10,$entity->score_waiter);
+            $pdf->Cell(30,10,$entity->score_chef);
+            $pdf->Cell(30,10,$entity->comments);
+            $pdf->Ln();
+        }
+        $pdf->Output('I', 'encuestas.pdf');
+
+        return $response->withHeader('Content-Type', 'application/pdf')
+        ->withStatus(201);
     }
 
     private static function ValidateScores($score) {

@@ -36,8 +36,6 @@ class UsuarioController implements IApiUsable
         $id = $args['id'];
         $usuario = Usuario::GetUserById($id);
 
-        //HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "Obteniendo el usuario con id: " . $id);
-
         $payload = json_encode($usuario);
 
         $response->getBody()->write($payload);
@@ -51,8 +49,6 @@ class UsuarioController implements IApiUsable
         $jwtHeader = $request->getHeaderLine('Authorization');
 
         $lista = Usuario::GetAllUsers();
-
-        //HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "Listando todos los usuarios");
 
         $payload = json_encode(array("users" => $lista));
 
@@ -152,7 +148,6 @@ class UsuarioController implements IApiUsable
         $lista = "Error, ingresar valor valido";
         break;
     }
-
 
     $payload = json_encode(array("consulta" => $lista));
     $response->getBody()->write($payload);

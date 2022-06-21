@@ -118,6 +118,7 @@ $app->group('/users', function (RouteCollectorProxy $group) {
     $group->post('[/]', \SurveyController::class . ':CreateSurvery');
     $group->get('/writecsv', \SurveyController::class . ':EndpointWriteCSV');
     $group->get('/readcsv', \SurveyController::class . ':EndpointReadCSV');
+    $group->get('/createpdf',\SurveyController::class . ':EndpointCreatePDF');
   });
 
 

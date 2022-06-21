@@ -191,10 +191,10 @@ class Order
         }
     }
 
-    public static function GetTableNumbersBetweenDates($startDate, $endDate) {
+    public static function GetOrdersBetweenDates($startDate, $endDate) {
         try {
             $objAccesoDatos = AccesoDatos::obtenerInstancia();
-            $consulta = $objAccesoDatos->prepararConsulta("SELECT table_id FROM orders WHERE finishAt BETWEEN :startDate AND :endDate");
+            $consulta = $objAccesoDatos->prepararConsulta("SELECT * FROM orders WHERE finishAt BETWEEN :startDate AND :endDate");
             $consulta->bindValue(':startDate', $startDate, PDO::PARAM_STR);
             $consulta->bindValue(':endDate', $endDate, PDO::PARAM_STR);
             $consulta->execute();

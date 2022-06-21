@@ -164,9 +164,8 @@ class MesaController extends Table implements IApiUsable
 
     $fechaInicio = date($args['fechaInicio']);
     $fechaFin = date($args['fechaFin']);
-    $mesaImporteEntreDosFechas = Order::GetTableNumbersBetweenDates($fechaInicio, $fechaFin);    
-
-
+    $mesaImporteEntreDosFechas = Order::GetOrdersBetweenDates($fechaInicio, $fechaFin);    
+    
     for ($i=0; $i < count($mesaImporteEntreDosFechas) ; $i++) { 
       $mesa = Table::GetTableByTableNumber($mesaImporteEntreDosFechas[$i]->table_id);
       array_push($tables, $mesa);

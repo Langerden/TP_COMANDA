@@ -33,8 +33,7 @@ class PedidoController implements IApiUsable
             $order = Order::CreateOrder($tableId, $userId, $productId, $status, rand(10000, 99999), $_FILES['picture']);
             $table = Table::UpdateTable($tableId, 'con cliente esperando pedido');
 
-            HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, 
-            "Creando el pedido con id: " . $order->id);
+            HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "Creando el pedido con id " . $order);
 
             $payload = json_encode(array("mensaje" => "Pedido ". $order." creado con exito"));
             $response->getBody()->write($payload);
@@ -101,7 +100,7 @@ class PedidoController implements IApiUsable
 
             $order = Order::UpdateUserAndTable($id, $tableId, $userId, $newFilename);
 
-            //HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "El pedido con id: " . $order . " cambio de mesa o de mozo");
+            HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "El pedido con id: " . $order . " cambio de mesa o de mozo");
 
             $payload = json_encode(array("mensaje" => "Pedido modificado con TableId: " . $tableId . " y UserId: " . $userId));
 
@@ -135,7 +134,7 @@ class PedidoController implements IApiUsable
         
         if(!is_null($pedidos)) {
           Order::UpdateOrderChef($orderNumber, $order_status, $estimatedTime);
-          //HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "CHEF. Modificando el status del pedido " . $orderNumber . " a " . $order_status);
+          HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "CHEF. Modificando el status del pedido " . $orderNumber . " a " . $order_status);
           $payload = json_encode(array("mensaje" => "Pedido " .$orderNumber. " modificado con exito"));
         } else {
           $payload = json_encode(array("mensaje" => "El pedido con numero de pedido: " .$orderNumber. " no existe"));
@@ -173,7 +172,7 @@ class PedidoController implements IApiUsable
           Order::UpdateOrderWaitress($orderNumber, $order_status, $totalPrice);
           Order::SetPrice($orderNumber, $totalPrice);
 
-          //HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "MOZO. Modificando el status del pedido " . $orderNumber . " a " . $order_status);
+          HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "MOZO. Modificando el status del pedido " . $orderNumber . " a " . $order_status);
           $payload = json_encode(array("mensaje" => "Pedido " .$orderNumber. " modificado con exito"));
         } else {
           $payload = json_encode(array("mensaje" => "El pedido con id: " .$orderNumber. " no existe"));
@@ -192,7 +191,7 @@ class PedidoController implements IApiUsable
         $id = $args['id'];
         Order::DeleteOrder($id);
           
-        //HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "Borrando el pedido con id: " . $id);
+        HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "Borrando el pedido con id: " . $id);
           
         $payload = json_encode(array("mensaje" => "Pedido " .$id. " borrado con exito"));       
 
@@ -215,7 +214,7 @@ class PedidoController implements IApiUsable
         if(!is_null($order) && !is_null($product)) {
             $order = Order::CreateOrder($order->table_id, $order->user_id, $product->id, $order->status, $order->orderNumber, $order->picture);
             
-            //HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "Agregando el producto " . $product->productName . " al pedido " . $order->orderNumber);
+            HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "Agregando el producto " . $product->productName . " al pedido " . $order->orderNumber);
             $payload = json_encode(array("mensaje" => "Producto agregado al pedido con exito"));
             $response->getBody()->write($payload);
             return $response
@@ -311,6 +310,13 @@ class PedidoController implements IApiUsable
         $pedidos = Order::GetOrdersByStatus('CANCELADO');
         $payload = json_encode(array("pedidos" => $pedidos));
         break;
+      case 'ReporteMensual':
+        $fechaActual = date('Y-m-d');        
+        $fechaPrevia = date('Y-m-d', strtotime('-1 month'));
+        //var_dump($fechaPrevia);
+        $pedidos = Order::GetOrdersBetweenDates($fechaPrevia, $fechaActual);
+        $payload = json_encode(array("pedidos" => $pedidos));
+        //var_dump($pedidos);
       }   
 
     $response->getBody()->write($payload);

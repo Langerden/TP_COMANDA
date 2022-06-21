@@ -83,10 +83,13 @@ class ProductoController implements IApiUsable
 
     public function BorrarUno($request, $response, $args)
     {
+        $jwtHeader = $request->getHeaderLine('Authorization');
         $id = $args['id'];
         Product::DeleteProduct($id);
 
         $payload = json_encode(array("mensaje" => "Producto ".$id." borrado con exito"));
+
+        HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "Borrando el producto con id: " . $id);
 
         $response->getBody()->write($payload);
         return $response
