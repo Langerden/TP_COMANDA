@@ -766,14 +766,21 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:666/querys/employees",
+									"raw": "localhost:666/querys/employees/:consulta",
 									"host": [
 										"localhost"
 									],
 									"port": "666",
 									"path": [
 										"querys",
-										"employees"
+										"employees",
+										":consulta"
+									],
+									"variable": [
+										{
+											"key": "consulta",
+											"value": "OperacionXEmpleado"
+										}
 									]
 								}
 							},
@@ -803,7 +810,7 @@
 									"variable": [
 										{
 											"key": "consulta",
-											"value": "MenorImporte"
+											"value": "MesaPeoresComentarios"
 										}
 									]
 								}
@@ -873,6 +880,102 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Survey",
+			"item": [
+				{
+					"name": "CREATE ENCUESTA DB",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "orderNumber",
+									"value": "94211",
+									"type": "default"
+								},
+								{
+									"key": "tableScore",
+									"value": "5",
+									"type": "default"
+								},
+								{
+									"key": "restaurantScore",
+									"value": "7",
+									"type": "default"
+								},
+								{
+									"key": "waiterScore",
+									"value": "9",
+									"type": "default"
+								},
+								{
+									"key": "chefScore",
+									"value": "8",
+									"type": "default"
+								},
+								{
+									"key": "comments",
+									"value": "todo re cheto",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:666/surveys",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"surveys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "WRITE CSV",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/surveys/writecsv",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"surveys",
+								"writecsv"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ CSV",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:666/surveys/readcsv",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"surveys",
+								"readcsv"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

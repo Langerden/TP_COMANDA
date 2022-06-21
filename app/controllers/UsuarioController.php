@@ -133,10 +133,26 @@ class UsuarioController implements IApiUsable
   }
 
   public function ConsultaUsuarios($request, $response, $args) {
-    $parametros = $request->getParsedBody();
-    //$consulta = $parametros['consulta'];
+    $consulta = $args['consulta'];
 
-    $lista = HistoricAccions::GetTimeLogin();
+    switch($consulta) {
+      case 'LogueoUsuarios':
+        $lista = HistoricAccions::GetTimeLogin();
+        break;
+      case 'OperacionXSector':
+        $lista = HistoricAccions::GetCantOperacionesPorSector();
+        break;
+      case 'OperacionXUsuario':
+        $lista = HistoricAccions::GetCantOperacionesPorUsuario();
+        break;
+      case 'OperacionXEmpleado':
+        $lista = HistoricAccions::GetCantOperacionesPorEmpleado();
+        break;
+      default:
+        $lista = "Error, ingresar valor valido";
+        break;
+    }
+
 
     $payload = json_encode(array("consulta" => $lista));
     $response->getBody()->write($payload);

@@ -21,6 +21,7 @@ require_once './controllers/UsuarioController.php';
 require_once './controllers/ProductoController.php';
 require_once './controllers/MesaController.php';
 require_once './controllers/PedidoController.php';
+require_once './controllers/SurveyController.php';
 
 // Load ENV
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -107,28 +108,20 @@ $app->group('/users', function (RouteCollectorProxy $group) {
   });
   
   $app->group('/querys', function (RouteCollectorProxy $group) {
-    $group->get('/employees', \UsuarioController::class . ':ConsultaUsuarios');
+    $group->get('/employees/{consulta}', \UsuarioController::class . ':ConsultaUsuarios');
     $group->get('/orders/{consulta}', \PedidoController::class . ':ConsultaPedidos');
     $group->get('/tables/{consulta}', \MesaController::class . ':ConsultaMesas');
     $group->get('/tables/{fechaInicio}/{fechaFin}', \MesaController::class . ':ConsultaMesasFecha');
   });
 
+  $app->group('/surveys', function (RouteCollectorProxy $group) {
+    $group->post('[/]', \SurveyController::class . ':CreateSurvery');
+    $group->get('/writecsv', \SurveyController::class . ':EndpointWriteCSV');
+    $group->get('/readcsv', \SurveyController::class . ':EndpointReadCSV');
+  });
 
-  //TODO grupo orders
+
   //TODO chequear status del pedido y de las mesas
-  /*
-  employees
-    Cantidad de operaciones de todos por sector.
-    Cantidad de operaciones de todos por sector, listada por cada empleado.
-    Cantidad de operaciones de cada uno por separado.    
-  */
-
-/*
-mesas:
-De las mesas: 
-  h- Mejores comentarios.
-  i- Peores comentarios.
-*/
 
 
 $app->run();

@@ -294,7 +294,6 @@ class Order
     }
 
 
-
     // protected $primaryKey = 'id';
     // protected $table = 'orders';
 

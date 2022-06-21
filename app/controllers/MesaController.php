@@ -116,11 +116,15 @@ class MesaController extends Table implements IApiUsable
         $mesa = Table::GetTableByTableNumber($idMesaMasUsada->table_id);
         $payload = json_encode(array("mesa" => $mesa));
         break;
-      case 'MesaMejoresComentarios':
-        // TODO
+      case 'MesaMejoresComentarios':        
+        $idMesaBestScore = Survery::GetMesaMejorYPeorComentario("DESC");
+        $mesa = Table::GetTableByTableNumber($idMesaBestScore->id_table);
+        $payload = json_encode(array("mesa" => $mesa));
         break;
       case 'MesaPeoresComentarios':
-        // TODO
+        $idMesaBestScore = Survery::GetMesaMejorYPeorComentario("ASC");
+        $mesa = Table::GetTableByTableNumber($idMesaBestScore->id_table);
+        $payload = json_encode(array("mesa" => $mesa));
         break;
       case 'MasFacturo':
         $mesaMasFacturo = Order::GetTableNumberMoreAndLessPrice("DESC");
