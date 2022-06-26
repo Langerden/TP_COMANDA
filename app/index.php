@@ -62,6 +62,13 @@ $app->addBodyParsingMiddleware();
 //     'prefix'    => '',
 // ]);
 
+$app->get('/', function (Request $request, Response $response, array $args) {
+    $response->getBody()->write("TP Comanda 3 - Langer");
+    return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus(200);
+});
+
 // Routes
 $app->group('/users', function (RouteCollectorProxy $group) {
     $group->get('[/]', \UsuarioController::class . ':TraerTodos');
