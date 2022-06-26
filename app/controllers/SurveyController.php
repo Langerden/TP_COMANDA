@@ -99,9 +99,7 @@ class SurveyController {
             return $response
                 ->withHeader('Content-Type', 'application/json')
                 ->withStatus(500);
-        } else {
-            $table = Table::GetTableByTableNumber($order[0]->table_id);
-            if($table->table_status == "con cliente pagando") {
+        } else if($order[0]->status == "cobrado"){
                 $tableScore = $parametros["tableScore"];
                 $restaurantScore = $parametros["restaurantScore"];
                 $waiterScore = $parametros["waiterScore"];
@@ -129,8 +127,7 @@ class SurveyController {
                 return $response
                     ->withHeader('Content-Type', 'application/json')
                     ->withStatus(500);
-            }          
-        }        
+            }   
     }
 
     public static function EndpointCreatePDF ($request, $response, $args) {

@@ -89,11 +89,11 @@ $app->group('/users', function (RouteCollectorProxy $group) {
   });
 
   $app->group('/orders', function (RouteCollectorProxy $group) {
-    //$group->get('[/]', \PedidoController::class . ':TraerTodos');
+    $group->get('[/]', \PedidoController::class . ':TraerTodos');
     $group->get('/{id}', \PedidoController::class . ':TraerUno');
-     //$group->get('/productos/{orderNumber}', \PedidoController::class . ':TraerProductosDeUnPedido');
-     //$group->get('[/{ordernumber}/mesa/{mesanumber}]', \PedidoController::class . ':ConsultarTiempoRestante');
-    //$group->get('[/status]', \PedidoController::class . ':TraerTodosSegunEstado')->add(\MWPermisos::class . ':VerifyIsSocio');
+    $group->get('/productos/{orderNumber}', \PedidoController::class . ':TraerProductosDeUnPedido');
+    $group->get('/{ordernumber}/mesa/{mesanumber}', \PedidoController::class . ':ConsultarTiempoRestante');
+    //$group->get('/status', \PedidoController::class . ':TraerTodosSegunEstado')->add(\MWPermisos::class . ':VerifyIsSocio');
     $group->post('[/]', \PedidoController::class . ':CargarUno')->add(\MWPermisos::class . ':VerifyIsWaitress');
     $group->put('[/{id}]', \PedidoController::class . ':ModificarUno')->add(\MWPermisos::class . ':VerifyIsSocio');
     $group->delete('/{id}', \PedidoController::class . ':BorrarUno')->add(\MWPermisos::class . ':VerifyIsSocio');
@@ -101,10 +101,10 @@ $app->group('/users', function (RouteCollectorProxy $group) {
 
   //post para atender una orden
   $app->group('/order', function (RouteCollectorProxy $group) {
-    $group->post('/{orderId}/product/{productId}', \PedidoController::class . ':AddProductInTheOrder')->add(\MWPermisos::class . ':VerifyIsWaitress');
+    $group->get('/{orderId}/product/{productId}', \PedidoController::class . ':AddProductInTheOrder')->add(\MWPermisos::class . ':VerifyIsWaitress');
     $group->post('/status/{orderNumber}', \PedidoController::class . ':ModificarPedidoFromChef')->add(\MWPermisos::class . ':VerifyIsChef');
     $group->post('/complete/{orderNumber}', \PedidoController::class . ':ModificarPedidoFromWaitress')->add(\MWPermisos::class . ':VerifyIsWaitress');
-    $group->get('[/status]', \PedidoController::class . ':TraerTodosSegunEstado')->add(\MWPermisos::class . ':VerifyIsSocio');
+    //$group->get('/status', \PedidoController::class . ':TraerTodosSegunEstado')->add(\MWPermisos::class . ':VerifyIsSocio');
   });
   
   $app->group('/querys', function (RouteCollectorProxy $group) {

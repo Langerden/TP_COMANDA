@@ -25,11 +25,11 @@ class PedidoController implements IApiUsable
         $productId = $parametros['productId'];
         $status = 'pendiente';
 
-        $table = Table::GetTableById($tableId);
+        $table = Table::GetTableByTableNumber($tableId);
         $user = Usuario::GetUserById($userId);
         $product = Product::GetProductById($productId);
 
-        if(!is_null($table) && !is_null($user) && !is_null($product)){
+        if(!is_null($table) && !is_null($user) && !is_null($product) && $table->table_status == 'vacia'){
             $order = Order::CreateOrder($tableId, $userId, $productId, $status, rand(10000, 99999), $_FILES['picture']);
             $table = Table::UpdateTable($tableId, 'con cliente esperando pedido');
 
@@ -41,7 +41,7 @@ class PedidoController implements IApiUsable
               ->withHeader('Content-Type', 'application/json')
               ->withStatus(201);
         } else{
-            $payload = json_encode(array("mensaje" => "Id Usuario || Id Producto || Id Mesa, INEXISTENTES"));
+            $payload = json_encode(array("mensaje" => "Id Usuario || Id Producto || Id Mesa son INEXISTENTES o la mesa ya esta ocupada"));
         }
       
       $response->getBody()->write($payload);
@@ -92,7 +92,7 @@ class PedidoController implements IApiUsable
         $table = Table::GetTableById($tableId);        
         $user = Usuario::GetUserById($userId);
 
-        if(!is_null($table) && !is_null($user)){
+        if(!is_null($table) && !is_null($user) && $table->table_status == 'vacia'){
 
             $pedido = Order::GetOrderById($id);
 
@@ -109,7 +109,7 @@ class PedidoController implements IApiUsable
               ->withHeader('Content-Type', 'application/json')
               ->withStatus(200);
         } else{
-            $payload = json_encode(array("mensaje" => "Id Usuario || Id Mesa, INEXISTENTES"));
+            $payload = json_encode(array("mensaje" => "Id Usuario || Id Mesa son INEXISTENTES o la mesa ya esta ocupada"));
         }
       
       $response->getBody()->write($payload);
@@ -155,20 +155,26 @@ class PedidoController implements IApiUsable
         $orderNumber = $args['orderNumber'];
         $order_status = $parametros['orderStatus'];
 
-        if($order_status != "servido") {
+        if($order_status != "servido" && $order_status != "cobrado") {
             throw new Exception("El status no es valido");
         }
         
         $pedido = Order::GetOrderByOrderNumber($orderNumber);
+        $table = Table::GetTableByTableNumber($pedido[0]->table_id);
         $totalPrice = 0;
-        //var_dump($pedido);
 
-       for ($i=0; $i < count($pedido) ; $i++) { 
-         $producto = Product::GetProductById($pedido[$i]->product_id);         
-         $totalPrice += $producto->price;
-       }
-        
         if(!is_null($pedido)) {
+          if($order_status == "servido") {            
+              Table::UpdateTable($table->table_number, 'con cliente comiendo');
+          } else {
+            Table::UpdateTable($table->table_number, 'vacia');
+
+            for ($i=0; $i < count($pedido) ; $i++) { 
+              $producto = Product::GetProductById($pedido[$i]->product_id);         
+              $totalPrice += $producto->price;
+            }
+          }
+        
           Order::UpdateOrderWaitress($orderNumber, $order_status, $totalPrice);
           Order::SetPrice($orderNumber, $totalPrice);
 
@@ -204,17 +210,15 @@ class PedidoController implements IApiUsable
     public function AddProductInTheOrder($request, $response, $args) {
         $jwtHeader = $request->getHeaderLine('Authorization');
 
-        $parametros = $request->getParsedBody();
-        $orderId = $parametros['orderId'];
-        $productId = $parametros['productId'];
+        $orderId = $args['orderId'];
+        $productId = $args['productId'];
 
         $order = Order::GetOrderById($orderId);
         $product = Product::GetProductById($productId);
 
         if(!is_null($order) && !is_null($product)) {
             $order = Order::CreateOrder($order->table_id, $order->user_id, $product->id, $order->status, $order->orderNumber, $order->picture);
-            
-            HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, "Agregando el producto " . $product->productName . " al pedido " . $order->orderNumber);
+            HistoricAccions::CreateRegistry(AutentificadorJWT::GetTokenData($jwtHeader)->id, ("Agregando el producto " . $product->productName . " al pedido " . strval($order->orderNumber)));
             $payload = json_encode(array("mensaje" => "Producto agregado al pedido con exito"));
             $response->getBody()->write($payload);
             return $response

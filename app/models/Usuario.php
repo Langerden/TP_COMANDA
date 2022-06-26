@@ -119,9 +119,9 @@ class Usuario {
     public static function LogicalDelete($id) {
         try {
             $objAccesoDatos = AccesoDatos::obtenerInstancia();
-            $consulta = $objAccesoDatos->prepararConsulta("UPDATE usuarios SET user_status = :user_status WHERE id = :id");
+            $consulta = $objAccesoDatos->prepararConsulta("UPDATE usuarios SET deletedAt = NOW(), user_status = :user_status WHERE id = :id");            
             $consulta->bindValue(':user_status', 'INACTIVE', PDO::PARAM_STR);
-            $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+            $consulta->bindValue(':id', $id, PDO::PARAM_INT);            
             $consulta->execute();
             return $objAccesoDatos->obtenerUltimoId();
         } catch (Exception $e) {
